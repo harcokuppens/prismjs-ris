@@ -5,8 +5,9 @@
     // Example: TY  - BOOK
     // Some tags, like TY (Type of Reference), can be treated specially.
 
-    // A pattern for the common RIS tag structure.
-    var risTagPattern = /^\s*[A-Z]{2}\s\s-.*$/m;
+    // A pattern for the common RIS tag structure, updated to include
+    // tags with a letter and a number.
+    var risTagPattern = /^\s*[A-Z][A-Z0-9]\s\s-.*$/m;
 
     Prism.languages.ris = {
         'comment': {
@@ -22,9 +23,17 @@
                 'value': /.+/
             }
         },
+        'er-tag': {
+            // The ER tag is another special case for the end of reference.
+            pattern: /^\s*ER\s\s-.*/m,
+            inside: {
+                'tag': /^\s*ER\s\s-/,
+                'value': /.+/
+            }
+        },
         'tag': {
-            // General two-letter tags.
-            pattern: /^\s*[A-Z]{2}\s\s-/m,
+            // General two-character tags, now allowing a letter and a number.
+            pattern: /^\s*[A-Z][A-Z0-9]\s\s-/m,
             alias: 'keyword'
         },
         'string': {
@@ -32,15 +41,16 @@
             pattern: risTagPattern,
             greedy: true,
             inside: {
-                'tag': /^\s*[A-Z]{2}\s\s-/,
+                'tag': /^\s*[A-Z][A-Z0-9]\s\s-/,
                 'value': /.+/
             }
         }
     };
 
-    // To ensure the TY tag is prioritized over the general tag.
+    // To ensure the TY and ER tags are prioritized over the general tag.
     Prism.languages.insertBefore('ris', 'tag', {
-        'ty-tag': Prism.languages.ris['ty-tag']
+        'ty-tag': Prism.languages.ris['ty-tag'],
+        'er-tag': Prism.languages.ris['er-tag']
     });
 
 }(Prism));
