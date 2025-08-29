@@ -20,7 +20,12 @@
             pattern: /^\s*TY\s\s-.*/m,
             inside: {
                 'tag': /^\s*TY\s\s-/,
-                'value': /.+/
+                'value': {
+                    pattern: /.+/,
+                    // Alias the value as a 'string' so Prism themes will color it
+                    // accordingly. This makes the coloring theme-dependent.
+                    alias: 'string'
+                }
             }
         },
         'er-tag': {
