@@ -13,6 +13,12 @@ No changes
 ## [1.0.0] - 2025-08-29
 
 ### Added
+- added support for commments and better syntax highlighting 
+- Published package to npm.
+
+## [1.0.0] - 2025-08-29
+
+### Added
 - Added initial regexes for parsing RIS files in PrismJS framework.
 - Published package to npm.
 
