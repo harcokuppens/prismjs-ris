@@ -11,8 +11,9 @@
 
     Prism.languages.ris = {
         'comment': {
-            // RIS comments start with //
-            pattern: /^\s*\/\/.*/m,
+            // Updated to match a wider variety of comment-starting characters
+            // including #, %, //, --, _, ___, and //-.
+            pattern: /^\s*(?:#|%|\/\/|--|_|___|\/\/-).*/m,
             greedy: true
         },
         'ty-tag': {
@@ -50,7 +51,7 @@
                     pattern: /.+/,
                     // Alias the value as a 'constant' for a different color that
                     // is also theme-dependent.
-                    alias: 'variable'
+                    alias: 'constant'
                 }
             }
         },
@@ -69,4 +70,3 @@
     });
 
 }(Prism));
-
