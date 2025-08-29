@@ -32,8 +32,6 @@
       pre[class*="language-"] {
         font-size: 0.8em; /* or use px like 14px */
       }
-
-      
     </style>
   </head>
   <body>
@@ -97,22 +95,112 @@ ER  -
     Because of this, different parsers (e.g., in Zotero, Mendeley, EndNote, or a
     custom script) might handle "non-standard" lines in slightly different ways.
 
-<h3>A Safe Practice</h3><p></p><p>To minimize the risk of an error, follow these best practices:</p><ul><li><p><b>Place comments on their own lines:</b> Don't try to add them at the end of a data line.</p></li><li><p><b>Start the line with a character or string that is clearly not a valid two-letter tag.</b> <code>%, #, --, //</code> are all good choices.</p></li><li><p><b>Leave a blank line before and after the comment block</b> to separate it from the actual citation data. This makes it even clearer to the parser that the lines are not part of the record.</p></li></ul><p>In conclusion, while there is no official "comment" syntax in the RIS format, the use of a non-conforming tag like <code>%</code> is the closest and most reliable workaround. The risk of a fatal error is small, but it's important to be aware that the RIS standard is not strictly enforced, and different parsers may behave differently.</p>
-
-    
+    <h3>A Safe Practice</h3>
+    <p></p>
+    <p>To minimize the risk of an error, follow these best practices:</p>
+    <ul>
+      <li>
+        <p>
+          <b>Place comments on their own lines:</b> Don't try to add them at the end
+          of a data line.
+        </p>
+      </li>
+      <li>
+        <p>
+          <b
+            >Start the line with a character or string that is clearly not a valid
+            two-letter tag.</b
+          >
+          <code>%, #, --, //</code> are all good choices.
+        </p>
+      </li>
+      <li>
+        <p>
+          <b>Leave a blank line before and after the comment block</b> to separate it
+          from the actual citation data. This makes it even clearer to the parser
+          that the lines are not part of the record.
+        </p>
+      </li>
+    </ul>
     <p>
-      Below is listing of reliable strings that can be used to start a
-      comment line in an RIS file. These strings are chosen because they do not match
-      the required "XX - " format of a valid RIS tag and are therefore highly likely
-      to be ignored by parsers.
+      In conclusion, while there is no official "comment" syntax in the RIS format,
+      the use of a non-conforming tag like <code>%</code> is the closest and most
+      reliable workaround. The risk of a fatal error is small, but it's important to
+      be aware that the RIS standard is not strictly enforced, and different parsers
+      may behave differently.
+    </p>
+
+    <p>
+      Below is listing of reliable strings that can be used to start a comment line
+      in an RIS file. These strings are chosen because they do not match the required
+      "XX - " format of a valid RIS tag and are therefore highly likely to be ignored
+      by parsers.
     </p>
 
     <ul>
-        <li>&nbsp;<b>#</b>   &nbsp;&nbsp;&nbsp;&nbsp; Common in many coding languages.</li>
-        <li>&nbsp;<b>%</b>    &nbsp;&nbsp;&nbsp; Used in LaTeX.</li>
-        <li>&nbsp;<b>//</b>  &nbsp;&nbsp;&nbsp;&nbsp; Common for single-line comments in many programming languages.</li>
-        <li>&nbsp;<b>--</b>  &nbsp;&nbsp;&nbsp;&nbsp; Used for comments in SQL.</li>
-        <li>&nbsp;<b>_</b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A simple character that won't be confused with a tag.</li>
+      <li>
+        &nbsp;<b>#</b> &nbsp;&nbsp;&nbsp;&nbsp; Common in many coding languages.
+      </li>
+      <li>&nbsp;<b>%</b> &nbsp;&nbsp;&nbsp; Used in LaTeX.</li>
+      <li>
+        &nbsp;<b>//</b> &nbsp;&nbsp;&nbsp;&nbsp; Common for single-line comments in
+        many programming languages.
+      </li>
+      <li>&nbsp;<b>--</b> &nbsp;&nbsp;&nbsp;&nbsp; Used for comments in SQL.</li>
+      <li>
+        &nbsp;<b>_</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A simple character that won't
+        be confused with a tag.
+      </li>
     </ul>
+
+    <h3>Advice</h3>
+    Just use a % character followed by a space at the beginning of a line to start a
+    comment. Put a comment above the publication and separate it with multiple empty
+    lines above it and one between the comment and the publication. This makes clear
+    to which publication the comment belongs to, but it is clearly separated from the
+    publication.
+
+    <pre><code class="language-ris">
+% below publication is a book 
+
+TY  - BOOK
+AU  - Smith, John
+AU  - Doe, Jane
+T1  - The Art of Coding
+PB  - Tech Publications
+CY  - New York
+DA  - 2023
+ER  - 
+
+
+% Just use a % character followed by a space at the beginning of a line to
+% start a comment. Put a comment above the publication and separate it with multiple
+% empty lines above it and one between the comment and the publication. This makes
+% clear to which publication the comment belongs to, but it is clearly separated
+% from the publication.
+
+TY  - Type of reference
+AU  - Author
+PY  - Publication Year
+T1  - Primary Title
+T2  - Secondary Title
+SP  - Start Page
+EP  - End Page
+VL  - Volume
+IS  - Issue
+ER  - 
+
+
+% below publication is another book 
+
+TY  - BOOK
+AU  - Smith, John
+T1  - The Art of Coding 2
+DA  - 2025
+ER  - 
+
+
+
+</code></pre>
   </body>
 </html>

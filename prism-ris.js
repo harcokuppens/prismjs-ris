@@ -5,22 +5,28 @@
     // Example: TY  - BOOK
     // Some tags, like TY (Type of Reference), can be treated specially.
 
-    // A pattern for the common RIS tag structure, updated to include
-    // tags with a letter and a number.
-    var risTagPattern = /^\s*[A-Z][A-Z0-9]\s\s-.*$/m;
+    // Here are some of the most common and useful aliases you can use:
+    //
+    //  comment: For code comments.
+    //  string: For string literals.
+    //  number: For numeric values.
+    //  boolean: For boolean values (true, false).
+    //  operator: For operators like +, -, =, and &&.
+    //  punctuation: For symbols like commas, periods, parentheses, and brackets.
+    //  operator: For variable names.
+    //  function: For function names.
+    //  class-name: For class or type names.
 
     Prism.languages.ris = {
-        'comment': {
-            // Updated to match a wider variety of comment-starting characters
-            // including #, %, //, --, _, ___, and //-.
-            pattern: /^\s*(?:#|%|\/\/|--|_|___|\/\/-).*/m,
-            greedy: true
-        },
         'ty-tag': {
             // The TY tag is a special case for the reference type.
             pattern: /^\s*TY\s\s-.*/m,
+            alias: 'variable',
             inside: {
-                'tag': /^\s*TY\s\s-/,
+                'tag': {
+                    pattern: /^\s*TY\s\s-/,
+                    alias: 'number'
+                },
                 'value': {
                     pattern: /.+/,
                     // Alias the value as a 'string' so Prism themes will color it
@@ -33,7 +39,10 @@
             // The ER tag is a special case for the end of reference.
             pattern: /^\s*ER\s\s-.*/m,
             inside: {
-                'tag': /^\s*ER\s\s-/,
+                'tag': {
+                    pattern: /^\s*ER\s\s-/,
+                    alias: 'number'
+                },
                 'value': /.+/
             }
         },
@@ -51,7 +60,7 @@
                     pattern: /.+/,
                     // Alias the value as a 'constant' for a different color that
                     // is also theme-dependent.
-                    alias: 'constant'
+                    alias: 'variable'
                 }
             }
         },
@@ -59,14 +68,24 @@
             // General two-character tags.
             pattern: /^\s*[A-Z][A-Z0-9]\s\s-/m,
             alias: 'keyword'
+        },
+        'comment': {
+            // This rule is a catch-all for any line that doesn't start with a valid tag format.
+            // The negative lookahead (?!...) ensures that a line does not begin with
+            // a two-letter/digit tag followed by two spaces and a hyphen.
+            pattern: /^\s*(?![A-Z][A-Z0-9]\s\s-).+$/m,
+            greedy: true
         }
     };
 
-    // To ensure the specific tags are prioritized over the general tag.
-    Prism.languages.insertBefore('ris', 'tag', {
+    // We're using insertBefore to make sure
+    // the tag rules are tried before the general "comment" rule.
+    Prism.languages.insertBefore('ris', 'comment', {
         'ty-tag': Prism.languages.ris['ty-tag'],
         'er-tag': Prism.languages.ris['er-tag'],
-        'title-tag': Prism.languages.ris['title-tag']
+        'title-tag': Prism.languages.ris['title-tag'],
+        'tag': Prism.languages.ris['tag']
     });
+
 
 }(Prism));
