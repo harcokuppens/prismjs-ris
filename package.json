@@ -1,0 +1,28 @@
+{
+  "name": "prismjs-ris",
+  "version": "1.0.0",
+  "description": "A language definition for RIS in the PrismJS syntax-highlighting framework.",
+  "main": "prism-ris.js",
+  "dependencies": {
+    "prismjs": "^1.19"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarcoKuppens/prismjs-ris.git"
+  },
+  "keywords": [
+    "prismjs",
+    "ris",
+    "syntax",
+    "highlight"
+  ],
+  "author": "Harco Kuppens <h.kuppens@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HarcoKuppens/prismjs-ris/issues"
+  },
+  "homepage": "https://github.com/HarcoKuppens/prismjs-ris"
+}
