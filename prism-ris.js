@@ -23,39 +23,49 @@
                 'value': {
                     pattern: /.+/,
                     // Alias the value as a 'string' so Prism themes will color it
-                    // accordingly. This makes the coloring theme-dependent.
+                    // accordingly.
                     alias: 'string'
                 }
             }
         },
         'er-tag': {
-            // The ER tag is another special case for the end of reference.
+            // The ER tag is a special case for the end of reference.
             pattern: /^\s*ER\s\s-.*/m,
             inside: {
                 'tag': /^\s*ER\s\s-/,
                 'value': /.+/
             }
         },
+        'title-tag': {
+            // Specific tags for titles: TI, T1, TT
+            pattern: /^\s*(TI|T1|TT)\s\s-.*/m,
+            inside: {
+                'tag': {
+                    pattern: /^\s*(TI|T1|TT)\s\s-/,
+                    // Alias the tag itself as a 'keyword' to match the style
+                    // of other general tags.
+                    alias: 'keyword'
+                },
+                'value': {
+                    pattern: /.+/,
+                    // Alias the value as a 'constant' for a different color that
+                    // is also theme-dependent.
+                    alias: 'variable'
+                }
+            }
+        },
         'tag': {
-            // General two-character tags, now allowing a letter and a number.
+            // General two-character tags.
             pattern: /^\s*[A-Z][A-Z0-9]\s\s-/m,
             alias: 'keyword'
-        },
-        'string': {
-            // Catch-all for the rest of the line, which is the value.
-            pattern: risTagPattern,
-            greedy: true,
-            inside: {
-                'tag': /^\s*[A-Z][A-Z0-9]\s\s-/,
-                'value': /.+/
-            }
         }
     };
 
-    // To ensure the TY and ER tags are prioritized over the general tag.
+    // To ensure the specific tags are prioritized over the general tag.
     Prism.languages.insertBefore('ris', 'tag', {
         'ty-tag': Prism.languages.ris['ty-tag'],
-        'er-tag': Prism.languages.ris['er-tag']
+        'er-tag': Prism.languages.ris['er-tag'],
+        'title-tag': Prism.languages.ris['title-tag']
     });
 
 }(Prism));
