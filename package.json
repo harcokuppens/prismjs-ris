@@ -1,6 +1,6 @@
 {
   "name": "prismjs-ris",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A language definition for RIS in the PrismJS syntax-highlighting framework.",
   "main": "prism-ris.js",
   "dependencies": {
