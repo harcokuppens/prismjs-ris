@@ -6,6 +6,9 @@ PrismJS-RIS
 
 A [RIS] language extension for [PrismJS].
 
+## Example
+
+An example of the main version of syntax highlighting of RIS source code is shown [here.](https://raw.githack.com/harcokuppens/prismjs-ris/main/example.html)
 
 ## Usage
 
