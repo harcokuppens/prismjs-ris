@@ -14,7 +14,7 @@ A [RIS] language extension for [PrismJS].
 Simply import the `prism-ris.min.js` (recommended at the end of `body`):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/prismjs-ris@1.0.1/prism-ris.min.js">
+<script src="https://cdn.jsdelivr.net/npm/prismjs-ris@1.0.2/prism-ris.min.js">
 </script>
 ```
 
@@ -25,7 +25,7 @@ For example:
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-solarizedlight.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
 </script>
-<script src="https://cdn.jsdelivr.net/npm/prismjs-ris@1.0.1/prism-ris.min.js">
+<script src="https://cdn.jsdelivr.net/npm/prismjs-ris@1.0.2/prism-ris.min.js">
 </script>
 ```
 
