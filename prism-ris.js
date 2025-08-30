@@ -5,30 +5,37 @@
     // Example: TY  - BOOK
     // Some tags, like TY (Type of Reference), can be treated specially.
 
-    // Here are some of the most common and useful aliases you can use:
-    //
-    //  comment: For code comments.
-    //  string: For string literals.
-    //  number: For numeric values.
-    //  boolean: For boolean values (true, false).
-    //  operator: For operators like +, -, =, and &&.
-    //  punctuation: For symbols like commas, periods, parentheses, and brackets.
-    //  operator: For variable names.
-    //  function: For function names.
-    //  class-name: For class or type names.
-
     Prism.languages.ris = {
+
+        'multi-line-tag': {
+            // This rule now handles the tags that can have multi-line values,
+            // including titles.
+            // It matches the tag and then everything that follows until a new tag is found.
+            // It does match  all tags except ER, TY, TI,T1, or TT tags, because
+            // these are handled special.
+            // note: we could not match these special tags before this multi-line-tag,
+            //       because when they are matched then they are removed from the text, 
+            //       and then the positive lookahead for a tag in the regex for a
+            //       multi-line-tag will not match anymore.  
+            pattern: /^\s*(?!ER|TY|TI|T1|TT)[A-Z][A-Z0-9]\s\s-\s*(?:.|\n)*?(?=\n\s*[A-Z][A-Z0-9]\s\s-)/m,
+            inside: {
+                'tag': {
+                    pattern: /^\s*[A-Z][A-Z0-9]\s\s-/,
+                    alias: 'keyword'
+                },
+                'value': {
+                    pattern: /(?:.|\n)*/m,
+                    // alias: 'variable'
+                }
+            }
+        },
         'ty-tag': {
             // The TY tag is a special case for the reference type.
             pattern: /^\s*TY\s\s-.*/m,
-            alias: 'variable',
             inside: {
-                'tag': {
-                    pattern: /^\s*TY\s\s-/,
-                    alias: 'number'
-                },
+                'tag': /^\s*TY\s\s-/,
                 'value': {
-                    pattern: /.+/,
+                    pattern: /.*/,
                     // Alias the value as a 'string' so Prism themes will color it
                     // accordingly.
                     alias: 'string'
@@ -37,18 +44,22 @@
         },
         'er-tag': {
             // The ER tag is a special case for the end of reference.
-            pattern: /^\s*ER\s\s-.*/m,
+            pattern: /^\s*ER\s\s-/m,
             inside: {
-                'tag': {
-                    pattern: /^\s*ER\s\s-/,
-                    alias: 'number'
-                },
+                'tag': /^\s*ER\s\s-/,
                 'value': /.+/
             }
         },
         'title-tag': {
             // Specific tags for titles: TI, T1, TT
-            pattern: /^\s*(TI|T1|TT)\s\s-.*/m,
+            // All other tags are already matched, and because the title tag
+            // is not the last tag in an publication entry, it means,
+            // that there will not be any text after it to be matched,
+            // because the tag after it is already matched and removed, 
+            // leaving the end of the title value at the end of the text.
+            // So we just have to match all text in possible mutliple lines
+            // after the tag as the title's value.
+            pattern: /^\s*(TI|T1|TT)\s\s-(?:.|\n)*/m,
             inside: {
                 'tag': {
                     pattern: /^\s*(TI|T1|TT)\s\s-/,
@@ -64,28 +75,15 @@
                 }
             }
         },
-        'tag': {
-            // General two-character tags.
-            pattern: /^\s*[A-Z][A-Z0-9]\s\s-/m,
-            alias: 'keyword'
-        },
+
+        // all tags are matched, what rests is all comment
         'comment': {
-            // This rule is a catch-all for any line that doesn't start with a valid tag format.
-            // The negative lookahead (?!...) ensures that a line does not begin with
-            // a two-letter/digit tag followed by two spaces and a hyphen.
-            pattern: /^\s*(?![A-Z][A-Z0-9]\s\s-).+$/m,
-            greedy: true
+            // This powerful comment rule matches everything that is not a tag block.
+            // It acts as a catch-all for the beginning of the file, between records, and at the end of the file.
+            // It works by matching any text greedily until it sees a new tag or the end of the file.
+            pattern: /.+/mg,
+            alias: 'comment'
         }
     };
-
-    // We're using insertBefore to make sure
-    // the tag rules are tried before the general "comment" rule.
-    Prism.languages.insertBefore('ris', 'comment', {
-        'ty-tag': Prism.languages.ris['ty-tag'],
-        'er-tag': Prism.languages.ris['er-tag'],
-        'title-tag': Prism.languages.ris['title-tag'],
-        'tag': Prism.languages.ris['tag']
-    });
-
 
 }(Prism));
