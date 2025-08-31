@@ -16,7 +16,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 
-    <script src="prism-ris.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-ris@1.0.2/prism-ris.min.js"></script>
 
     <style>
       body {
@@ -42,6 +42,8 @@
     </p>
 
     <pre><code class="language-ris">
+% Example of an Book entry with its title spread over 2 lines.    
+
 TY  - BOOK
 AU  - Smith, John
 AU  - Doe, Jane
@@ -53,6 +55,10 @@ CY  - New York
 DA  - 2023
 ER  - 
 
+
+% Comments are allowed only between entries, then they should be ignored by RIS
+% parsers. Spreading a value over multiple lines is also supported by RIS 
+% parsers. Note that there is no official RIS standard.
 
 TY  - Type of reference
 AU  - Author
@@ -181,10 +187,10 @@ ER  -
 
 
 % Just use a % character followed by a space at the beginning of a line to
-% start a comment. Put a comment above the publication and separate it with multiple
-% empty lines above it and one between the comment and the publication. This makes
-% clear to which publication the comment belongs to, but it is clearly separated
-% from the publication.
+% start a comment. Put a comment above the publication and separate it with 
+% multiple empty lines above it and one between the comment and the 
+% publication. This makes clear to which publication the comment belongs to, 
+% but it is clearly separated from the publication.
 
 TY  - Type of reference
 AU  - Author

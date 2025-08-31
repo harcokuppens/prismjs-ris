@@ -3,7 +3,10 @@
 [![npm package](https://img.shields.io/npm/v/prismjs-ris?logo=npm&style=for-the-badge)](https://www.npmjs.com/package/prismjs-ris)
 [![jsDelivr hits](https://img.shields.io/jsdelivr/npm/hm/prismjs-ris?color=gold&logo=javascript&style=for-the-badge)](https://www.jsdelivr.com/package/npm/prismjs-ris)
 
-A [RIS] language extension for [PrismJS].
+Syntax highlighting the RIS publication format.
+
+Implemented by a language definition for RIS in the PrismJS syntax highlighting
+framework.
 
 ## Example
 
@@ -15,7 +18,10 @@ below in the image, but a live example is shown
 
 The start and end tags of a RIS publication are colored different then normal tags.
 The type of publication in the start tag and the title of the publication are each
-colored different to make them standout from normal tags.
+colored different to make them standout from normal tags. The
+[example](https://raw.githack.com/harcokuppens/prismjs-ris/main/example.html) also
+explains the details about comments in the RIS source which are ignored by RIS
+parsers.
 
 ## Usage
 
