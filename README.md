@@ -13,6 +13,10 @@ below in the image, but a live example is shown
 
 ![example.jpg](./example.jpg)
 
+The start and end tags of a RIS publication are colored different then normal tags.
+The type of publication in the start tag and the title of the publication are each
+colored different to make them standout from normal tags.
+
 ## Usage
 
 ### In HTML
